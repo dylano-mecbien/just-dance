@@ -33,7 +33,6 @@ function fillOpenSlots(bracket: Bracket, list: Participant[]): Bracket {
 
 const seedParticipants: Participant[] = [
   { id: "demo-1", pseudo: "Luna Beat", phone: "", status: "active", seed: 1 },
-
 ];
 
 const schedule = [
