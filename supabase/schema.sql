@@ -25,5 +25,21 @@ create policy "participants_update_public" on public.participants for update usi
 
 grant select, insert, update on public.participants to anon, authenticated;
 
+create table if not exists public.contest_state (
+  id integer primary key check (id = 1),
+  show_ranking boolean not null default false,
+  bracket jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.contest_state enable row level security;
+drop policy if exists "contest_state_read_public" on public.contest_state;
+drop policy if exists "contest_state_write_public" on public.contest_state;
+create policy "contest_state_read_public" on public.contest_state for select using (true);
+create policy "contest_state_write_public" on public.contest_state for insert with check (true);
+create policy "contest_state_update_public" on public.contest_state for update using (true) with check (true);
+grant select, insert, update on public.contest_state to anon, authenticated;
+insert into public.contest_state (id) values (1) on conflict (id) do nothing;
+
 -- Optionnel : bucket Storage pour des photos persistantes.
 -- À créer dans Dashboard > Storage avec le nom participant-photos et l'option Public activée.

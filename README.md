@@ -17,7 +17,7 @@ Le site est ensuite accessible sur l’URL indiquée par Vite.
 
 ## Connexion Supabase
 
-Dans Supabase, créez un projet puis ouvrez le SQL Editor. Copiez-collez le contenu de `supabase/schema.sql` et exécutez-le. Dans Storage, créez ensuite un bucket public nommé `participant-photos` si vous souhaitez stocker durablement les photos. Le formulaire fonctionne aussi sans bucket, mais les photos ajoutées depuis un navigateur seront alors uniquement temporaires.
+Dans Supabase, créez un projet puis ouvrez le SQL Editor. Copiez-collez le contenu de `supabase/schema.sql` et exécutez-le. Le script crée la table `participants` ainsi que `contest_state`, qui conserve le bracket, la progression des matchs et la visibilité du classement pour tous les appareils. Dans Storage, créez ensuite un bucket public nommé `participant-photos` si vous souhaitez stocker durablement les photos. Le formulaire fonctionne aussi sans bucket, mais les photos ajoutées depuis un navigateur seront alors uniquement temporaires.
 
 Créez un fichier `.env.local` à la racine du projet à partir de `env.sample` :
 
@@ -47,7 +47,7 @@ Le fichier `vercel.json` fournit la réécriture SPA nécessaire afin que l’UR
 
 ## Utilisation le jour du concours
 
-L’organisateur ouvre `/` pour présenter le programme. Le bouton d’inscription reste visible tant que le classement n’est pas activé. Pour administrer le concours, cliquez sur **Admin**, entrez le PIN, puis activez **Classement visible**. Les participantes inscrites apparaissent alors dans le tableau public. À chaque manche, le bouton rouge permet d’éliminer une participante. Le bouton trophée permet de désigner la championne finale. La page publique se rafraîchit automatiquement périodiquement lorsque Supabase est configuré.
+L’organisateur ouvre `/` pour présenter le programme. Le bouton d’inscription reste visible tant que le classement n’est pas activé. Pour administrer le concours, cliquez sur **Admin**, entrez le PIN, puis activez **Classement visible**. Les participantes inscrites apparaissent alors dans le tableau public. À chaque manche, le tableau admin affiche les 8es de finale, les quarts, les demi-finales et la finale. Cliquez sur le nom de la gagnante d’un match : elle avance automatiquement dans la colonne suivante et l’autre participante est marquée éliminée. En finale, la gagnante reçoit le statut de championne. Avec Supabase configuré, le bracket et sa visibilité sont synchronisés entre les appareils. La page publique se rafraîchit automatiquement périodiquement lorsque Supabase est configuré.
 
 Les données de démonstration locales servent uniquement à prévisualiser l’interface. Elles ne sont pas envoyées à Supabase tant qu’aucune vraie inscription n’est soumise.
 
