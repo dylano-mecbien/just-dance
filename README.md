@@ -19,7 +19,7 @@ Le site est ensuite accessible sur l’URL indiquée par Vite.
 
 Dans Supabase, créez un projet puis ouvrez le SQL Editor. Copiez-collez le contenu de `supabase/schema.sql` et exécutez-le. Dans Storage, créez ensuite un bucket public nommé `participant-photos` si vous souhaitez stocker durablement les photos. Le formulaire fonctionne aussi sans bucket, mais les photos ajoutées depuis un navigateur seront alors uniquement temporaires.
 
-Créez un fichier `.env.local` à la racine du projet à partir de `.env.example` :
+Créez un fichier `.env.local` à la racine du projet à partir de `env.sample` :
 
 ```env
 VITE_SUPABASE_URL=https://votre-projet.supabase.co
@@ -38,9 +38,10 @@ Le projet est compatible avec Vercel sans serveur supplémentaire. Dans Vercel, 
 | Install Command | `pnpm install` |
 | Build Command | `pnpm build` |
 | Output Directory | `dist/public` |
+| Root Directory | `/` (la racine qui contient `package.json` et `vercel.json`) |
 | Node.js | 20 ou plus récent |
 
-Ajoutez `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` et `VITE_ADMIN_PIN` dans les Environment Variables de Vercel pour les environnements Preview et Production. Après chaque changement de variable, relancez un déploiement.
+Ajoutez `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` et `VITE_ADMIN_PIN` dans les Environment Variables de Vercel pour les environnements Preview et Production. Après chaque changement de variable, relancez un déploiement. **Ne sélectionnez pas `server/index.ts` comme fichier d’entrée et ne choisissez pas `server` comme Root Directory** : Vercel doit lancer `pnpm build`, puis servir le dossier `dist/public`. Le fichier `server/index.ts` n’est pas utilisé par ce déploiement statique.
 
 Le fichier `vercel.json` fournit la réécriture SPA nécessaire afin que l’URL principale reste fonctionnelle après un rafraîchissement.
 
